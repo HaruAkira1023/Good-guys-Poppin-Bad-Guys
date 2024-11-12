@@ -1,0 +1,157 @@
+<html>
+    <head>
+	<meta charset="utf-8">
+        <title>Good Guys Poppin' Bad Guys</title>
+		<link rel="shortcut icon" href="./Gamefiles/Images/Good Guy.png">
+		<style>
+		.black {color:#000000}
+		.blue { color:#268cc4}
+		.grey { color:#c2c2c2}
+		.green { color:#7aff4d}
+		.orange { color:#ffc080}
+		.purple { color:#a44aff}
+		body{ background-color: #5fbcbc; }
+		#livings{ font-family: "Lucida Console", Monaco, monospace; color:#850218; margin-left:86.85%; position:absolute; top:47px;}
+		#codingTab{overflow:scroll; text-align:left;color:#cccccc;font-size:10px; background:#ffffff;  margin: left;  width: 30%;  height: 60%;  border: 3px solid #46725a;  padding: 10px; position:absolute; left:15%; top:145px;}
+		#tab2{ background-color:#1f358c;  background-image: linear-gradient(#5e81c1, #102285);  color:white; margin:left;  width: 30%;  height: 1%;  border: 3px solid #46725a;  padding:10px; position:absolute; left:15%; top:110px;  }
+		#tab{ background-color:#1f358c;  background-image: linear-gradient(#5e81c1, #102285);  color:white; margin:auto;  width: 30%;  height: 1%;  border: 3px solid #46725a;  padding: 10px; position:absolute; left:35%; top:50px; }
+		#mainScreen{ background:#1f3328;  margin: auto;  width: 30%;  height: 80%;  border: 3px solid #46725a;  padding: 10px; position:absolute; left:35%; top:85px;}
+		#score2{ font-family: "Lucida Console", Monaco, monospace;  color:#850218; font-size:52px; position:absolute; left:50%;}
+        #screenGPB{margin: auto;  width: 100%;  height: 96%;}
+		#badGuy{}
+		#goodGuy{}
+		
+		</style>
+<audio id="Theme">   
+<source src="./Gamefiles/Music/Running Away.mp3" type="audio/mp3"></audio>   
+<audio id="Theme2">   
+<source src="./Gamefiles/Music/Bus Stop.mp3" type="audio/mp3"></audio>  
+<audio id="Theme3">   
+<source src="./Gamefiles/Music/Lakes Theme.mp3" type="audio/mp3"></audio>  
+<audio id="Theme4">   
+<source src="./Gamefiles/Music/M.T. Escapes.mp3" type="audio/mp3"></audio>  
+<audio id="Theme5">   
+<source src="./Gamefiles/Music/Mirror World.mp3" type="audio/mp3"></audio>  
+<audio id="Theme6">   
+<source src="./Gamefiles/Music/The Ball Pit Car.mp3" type="audio/mp3"></audio>  
+<audio id="Theme7">   
+<source src="./Gamefiles/Music/Time Me!.mp3" type="audio/mp3"></audio>  
+<audio id="Theme8">   
+<source src="./Gamefiles/Music/To The Engine!.mp3" type="audio/mp3"></audio>  
+<audio id="Death">   
+<source src="./Gamefiles/Music/Explosion Sound Effect.mp3" type="audio/mp3"></audio>   
+<audio id="GameOver">   
+<source src="./Gamefiles/Music/Death Screen.mp3" type="audio/mp3"></audio>   
+<audio id="GameOver3">   
+<source src="./Gamefiles/Music/Death Screen 2.mp3" type="audio/mp3"></audio>  
+<audio id="GameOver4">   
+<source src="./Gamefiles/Music/Death Screen 3.mp3" type="audio/mp3"></audio>  
+<audio id="GameOver5">   
+<source src="./Gamefiles/Music/Death Screen 4.mp3" type="audio/mp3"></audio>  
+<audio id="GameOver6">   
+<source src="./Gamefiles/Music/Death Screen 5.mp3" type="audio/mp3"></audio>  
+<audio id="GameOver7">   
+<source src="./Gamefiles/Music/Death Screen 6.mp3" type="audio/mp3"></audio>  
+<audio id="GameOver2">   
+<source src="./Gamefiles/Music/Death Music.mp3" type="audio/mp3"></audio>   
+<audio id="GameOver8">   
+<source src="./Gamefiles/Music/Death Music 2.mp3" type="audio/mp3"></audio>   
+<audio id="passed">   
+<source src="./Gamefiles/Music/Passing Sound.mp3" type="audio/mp3"></audio> 
+<audio id="fallingBadGuy">   
+<source src="./Gamefiles/Music/Falling Bad Guy.mp3" type="audio/mp3"></audio> 
+<audio id="fallingBadGuy2">   
+<source src="./Gamefiles/Music/Falling Bad Guy 2.mp3" type="audio/mp3"></audio> 
+<audio id="fallingBadGuy3">   
+<source src="./Gamefiles/Music/Falling Bad Guy 3.mp3" type="audio/mp3"></audio> 
+
+	</head>
+	<!--<body id=hiddenId1 onkeydown="movement()">-->
+	<div id=tab2>
+	<text>good_guys_poppin'_bad guys_.txt</text>
+	</div>
+	<div id=codingTab>
+	<ol>
+	<li><span class=grey>//Controls</span></li>
+    <li><span class=grey>//Left = A/Left Arrow</span></li>
+	<li><span class=grey>//Right = D/Right Arrow</span></li>
+	<li><span class=grey>//Music Mute/Unmute = M</span></li>
+	<li><span class=grey>//Pause/Unpause = P</span></li>
+	<li><i class=orange>const</i><span class=blue>speed</span><span class=black> = <span class=purple id=sped>4.5</span></span></li>
+	<li><i class=orange>let</i><span class=blue>position</span><span class=black> = <span class=purple id=position>120</span></span></li>
+	<li><i class=orange>var</i><span class=blue>badGuySpeed</span><span class=black> = <span class=purple id=bgsped>1</span></span></li>
+    <li><i class=orange>var</i><span class=blue>score</span><span class=black> = <span class=purple id=score>0</span></span></li>
+	<li><i class=orange>var</i><span class=blue>lives</span><span class=black> = <span class=purple id=life>3</span></span></li>
+	<li><i class=orange>var</i><span class=blue>badGuy1falling</span><span class=black> = <span class=purple id=bgfall1>0</span></span></li>
+	<li><i class=orange>var</i><span class=blue>badGuy1Position</span><span class=black> = <span class=purple id=random1>186</span></span></li>
+    <li><i class=orange>var</i><span class=blue>badGuy2falling</span><span class=black> = <span class=purple id=bgfall2>-870</span></span></li>
+	<li><i class=orange>var</i><span class=blue>badGuy2Position</span><span class=black> = <span class=purple id=random2>186</span></span></li>
+    <li><i class=orange>var</i><span class=blue>badGuy3falling</span><span class=black> = <span class=purple id=bgfall3>-2076</span></span></li>
+	<li><i class=orange>var</i><span class=blue>badGuy3Position</span><span class=black> = <span class=purple id=random3>186</span></span></li>
+	<li><span class=grey>//falling function</span></li>
+	<li><i class=orange>function</i><span class=blue>fallingBadGuys </span><span class=black>() {</span></li>
+	<li><i class=orange>if</i><span class=black> (</span><span class=blue>badGuy1falling</span><span class=black> < <span class=purple>150</span>) {</span></li>
+	<li><span class=blue>badGuy1falling </span><span class=black> = </span><span class=blue>badGuy1falling </span><span class=black> + </span><span class=blue>badGuySpeed </span><span class=black>;</span></li>
+	<li><span class=black>}</span></li><li><i class=orange>else if</i><span class=black> (</span><span class=blue>badGuy1falling</span><span class=black> = <span class=purple>150</span> && </span><span class=blue>score</span><span class=black> > 0) {</span></li>
+	<li><span class=blue>badGuy1falling</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>-15</span>) + <span class=purple>-30</span>),</span></li>
+	<li><span class=blue>score</span><span class=black> = </span><span class=blue>score</span><span class=purple> - 15,</span></li>
+		<li><span class=blue>badGuy1Position</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>xP</span>) + <span class=purple>xN</span>);</span></li>
+	<li><span class=black>}</span></li>
+		<li><i class=orange>else if</i><span class=black> (</span><span class=blue>badGuy2falling</span><span class=black> < <span class=purple>150</span>) {</span></li>
+	<li><span class=blue>badGuy2falling </span><span class=black> = </span><span class=blue>badGuy2falling </span><span class=black> + </span><span class=blue>badGuySpeed </span><span class=black>;</span></li>
+	<li><span class=black>}</span></li><li><i class=orange>else if</i><span class=black> (</span><span class=blue>badGuy2falling</span><span class=black> = <span class=purple>150</span> && </span><span class=blue>score</span><span class=black> > 0) {</span></li>
+	<li><span class=blue>badGuy2falling</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>-15</span>) + <span class=purple>-30</span>),</span></li>
+	<li><span class=blue>score</span><span class=black> = </span><span class=blue>score</span><span class=purple> - 15,</span></li>
+		<li><span class=blue>badGuy2Position</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>xP</span>) + <span class=purple>xN</span>);</span></li>
+	<li><span class=black>}</span></li>
+			<li><i class=orange>else if</i><span class=black> (</span><span class=blue>badGuy3falling</span><span class=black> < <span class=purple>150</span>) {</span></li>
+	<li><span class=blue>badGuy3falling </span><span class=black> = </span><span class=blue>badGuy3falling </span><span class=black> + </span><span class=blue>badGuySpeed </span><span class=black>;</span></li>
+	<li><span class=black>}</span></li><li><i class=orange>else if</i><span class=black> (</span><span class=blue>badGuy3falling</span><span class=black> = <span class=purple>150</span> && </span><span class=blue>score</span><span class=black> > 0) {</span></li>
+	<li><span class=blue>badGuy3falling</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>-15</span>) + <span class=purple>-30</span>),</span></li>
+	<li><span class=blue>score</span><span class=black> = </span><span class=blue>score</span><span class=purple> - 15,</span></li>
+		<li><span class=blue>badGuy3Position</span><span class=black> = </span><span class=blue>Math.floor</span><span class=black>((</span><span class=blue>Math.random</span><span class=black>() * <span class=purple>xP</span>) + <span class=purple>xN</span>);</span></li>
+	<li><span class=black>}</span></li>
+	<li><span class=black>};</span></li>
+	<li><i class=orange>function</i><span class=blue></span><span class=black></span></li>
+	<li><i class=orange>var</i><span class=blue>position</span><span class=black> = </span><span class=blue>position</span><span class=black>;</span></li>
+	<li><i class=orange>if</i><span class=black>(</span><span class=blue>keyPresses.ArrowLeft</span><span class=black> && </span><span class=blue>position</span><span class=black> > </span><span class=purple>xN</span><span class=black>) {</span></li>
+	<li><span class=blue>position</span><span class=black> = </span><span class=blue>position</span><span class=black> - </span><span class=blue>speed</span><span class=black>;</span></li>
+	<li><span class=black>} </span><i class=orange>else if</i><span class=black>(</span><span class=blue>keyPresses.ArrowRight</span><span class=black> && </span><span class=blue>position</span><span class=black> < </span><span class=purple>xP</span><span class=black>) {</span></li>
+	<li><span class=blue>position</span><span class=black> = </span><span class=blue>position</span><span class=black> + </span><span class=blue>speed</span><span class=black>;</span></li>
+	<li><span class=black>} </span><i class=orange>else if</i><span class=black>(</span><span class=blue>keyPresses.a</span><span class=black> && </span><span class=blue>position</span><span class=black> > </span><span class=purple>xN</span><span class=black>) {</span></li>
+	<li><span class=blue>position</span><span class=black> = </span><span class=blue>position</span><span class=black> - </span><span class=blue>speed</span><span class=black>;</span></li>
+	<li><span class=black>} </span><i class=orange> else if</i><span class=black>(</span><span class=blue>keyPresses.d</span><span class=black> && </span><span class=blue>position</span><span class=black> < </span><span class=purple>xP</span><span class=black>) {</span></li>
+	<li><span class=blue>position</span><span class=black> = </span><span class=blue>position</span><span class=black> + </span><span class=blue>speed</span><span class=black>;</span></li>
+	<li><span class=black>}</span></li>
+	<li><span class=black>}; </span></li>
+	<li><span class=black><i class=orange>function</i><span class=blue>alive</span>() {</span></li>
+	<li><span class=black><i class=orange>var</i><span class=blue>position</span> = <span class=blue>position</span>;</span></li>
+	<li><span class=black><i class=orange>var</i><span class=blue>lives</span> = <span class=blue>lives</span>;</span></li>
+	<li><span class=black><i class=orange>var</i><span class=blue>livings</span> = <span class=blue>lives</span>;</span></li>
+	<li><span class=black><span class=blue>livings</span> = <span class=blue>lives</span>;</span></li>
+	<li><span class=black><i class=orange>var</i><span class=blue>position</span> = <span class=blue>position</span>;</span></li>
+	<li><span class=black><span class=blue>score</span> = <span class=blue>score</span>;</span></li>
+	<li><span class=black><span class=blue>ctx.fillStyle</span> = <span class=green>"#1f3328"</span>;</span></li>
+	<li><span class=black><span class=blue>ctx.fillRect</span>(<span class=purple>0, 0, 300, 300</span>);</span></li>
+	<li><span class=black><i class=orange>if</i>(<span class=blue>lives</span> > <span class=purple>0</span>) {</span></li>
+	<li><span class=black><span class=blue>ctx.drawImage</span>(),</span></li>
+	<li><span class=black><span class=blue>cLives.call</span>();</span></li>
+	<li><span class=black>} <i class=orange>else if</i>(<span class=blue>lives</span> < <span class=purple>1</span>) {</span></li>
+	<li><span class=black><span class=blue>death.call</span>()</span></li>
+	<li><span class=black>}</li>
+	</ol>
+	</div>
+	<div id=tab>
+	<text>good_guys_poppin'_bad_guys.exe</text>
+	</div>
+	<div id=mainScreen>
+<h1 id=center><span id=score2>0</span><span id=livings>0</span></h1>
+ <canvas id=screenGPB>
+	<img id=badGuy src="./Gamefiles/Images/Bad Guy.png">
+	<img id=goodGuy src="./Gamefiles/Images/Good Guy.png">
+	<img id=explosion src="./Gamefiles/Images/Explosion.png">
+ </canvas>
+	</div>
+       <script defer src="./Gamefiles/GPB.js"></script>
+    </body>
+</html>
